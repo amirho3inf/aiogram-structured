@@ -26,7 +26,7 @@ HANDLERS_DIR = "handlers"
 MODELS_DIR = "models"
 CONTEXT_FILE = "context"
 
-ENABLE_APSCHEDULER = False
+ENABLE_APSCHEDULER = True
 
 SUDOERS = [
     388618835,
@@ -34,4 +34,5 @@ SUDOERS = [
 
 HANDLERS = [
     "start",
+    "scheduler_example"
 ]
