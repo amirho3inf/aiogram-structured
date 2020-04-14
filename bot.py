@@ -80,13 +80,13 @@ def set_bot_properties(executor, bot):
 
 def get_alembic_conf():
     alembic_cfg = Config()
-    alembic_cfg.set_main_option("script_location", ".migrations")
+    alembic_cfg.set_main_option("script_location", "migrations")
     alembic_cfg.set_main_option("sqlalchemy.url", DATABASE_URL)
-    alembic_cfg.config_file_name = os.path.join(".migrations", 'alembic.ini')
-    if os.path.isdir('.migrations') is False:
+    alembic_cfg.config_file_name = os.path.join("migrations", 'alembic.ini')
+    if os.path.isdir('migrations') is False:
         click.echo(click.style("Initiating alembic...", fg='bright_blue'))
-        alembic.init(alembic_cfg, '.migrations')
-        with open('.migrations/env.py', 'r+') as f:
+        alembic.init(alembic_cfg, 'migrations')
+        with open('migrations/env.py', 'r+') as f:
             content = f.read()
             content = content.replace(
                 'target_metadata = None',
