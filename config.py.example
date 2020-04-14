@@ -1,0 +1,37 @@
+API_TOKEN = "123456789:AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+SKIP_UPDATES = True
+
+# example: socks5://127.0.0.1:1080
+PROXY = None
+
+# example: 
+# from aiohttp import BasicAuth
+# PROXY_AUTH = BasicAuth(
+#     USERNAME,
+#     PASSWORD
+# )
+PROXY_AUTH = None
+
+# example:
+# MYSQL = mysql+pymysql://USER:PASS@HOST:PORT/DB?charset=utf8mb4
+# SQLITE = sqlite:///database.sqlite
+DATABASE_URL = None
+
+# example:
+# redis://[:password@]host[:port][/db-number][?option=value]
+# redis://localhost/0
+REDIS_URL = None
+
+HANDLERS_DIR = "handlers"
+MODELS_DIR = "models"
+CONTEXT_FILE = "context"
+
+ENABLE_APSCHEDULER = False
+
+SUDOERS = [
+    388618835,
+]
+
+HANDLERS = [
+    "start",
+]

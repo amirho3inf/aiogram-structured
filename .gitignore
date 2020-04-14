@@ -1,0 +1,7 @@
+config.py
+.migrations
+.venv
+venv
+__pycache__
+.vscode
+database.sqlite
