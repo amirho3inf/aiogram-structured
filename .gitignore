@@ -1,5 +1,4 @@
 config.py
-.migrations
 .venv
 venv
 __pycache__
