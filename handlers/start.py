@@ -7,7 +7,7 @@ from forms.register import Register
 from utils.custom_filters import IsPrivate
 
 
-@dp.message_handler(IsPrivate, CommandStart())
+@dp.message_handler(CommandStart(), IsPrivate)
 async def start(msg):
     user = User.query.filter(User.id == msg.from_user.id).first()
     if user is not None:
