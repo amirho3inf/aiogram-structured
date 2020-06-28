@@ -4,6 +4,7 @@ import os
 import click
 import inspect
 import importlib
+import traceback as tb
 from datetime import datetime
 
 from aiogram import Bot, Dispatcher, executor
@@ -130,7 +131,7 @@ def run():
             click.echo(click.style("loaded", fg='bright_green'))
         except Exception as err:
             click.echo(click.style("error", fg='bright_red'))
-            click.echo(click.style(f"↳  {err}", fg='bright_red'))
+            click.echo(click.style(f"↳  {tb.format_exc()}", fg='bright_red'))
 
     click.echo('Bot running as ' +
                click.style(f'@{THIS.bot.username}', fg='bright_blue'))
@@ -162,7 +163,7 @@ def makemigrations(message):
 
         except Exception as err:
             click.echo(click.style("error", fg='bright_red'))
-            click.echo(click.style(f"↳  {err}", fg='bright_red'))
+            click.echo(click.style(f"↳  {tb.format_exc()}", fg='bright_red'))
 
     try:
         cfg = get_alembic_conf()
