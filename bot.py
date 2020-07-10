@@ -115,6 +115,7 @@ def get_async_scheduler(redis):
 class CliGroup(click.Group):
     def list_commands(self, ctx):
         return [
+            "showmigrations",
             "makemigrations",
             "migrate",
             "run"
@@ -149,6 +150,19 @@ def run():
         THIS.scheduler.start()
 
     THIS.executor.start_polling(THIS.dp, skip_updates=SKIP_UPDATES)
+
+
+@cli.command()
+@click.option('--verbose', default=False, is_flag=True)
+def showmigrations(verbose):
+    try:
+        cfg = get_alembic_conf()
+        history = alembic.history(cfg, verbose=verbose)
+        click.echo(history)
+    except CommandError as err:
+        click.echo(click.style(
+            str(err),
+            fg='bright_red'))
 
 
 @cli.command()
