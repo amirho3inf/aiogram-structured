@@ -112,7 +112,16 @@ def get_async_scheduler(redis):
     return AsyncIOScheduler(jobstores=jobstores, job_defaults=job_defaults)
 
 
-@click.group()
+class CliGroup(click.Group):
+    def list_commands(self, ctx):
+        return [
+            "makemigrations",
+            "migrate",
+            "run"
+        ]
+
+
+@click.group(cls=CliGroup)
 def cli():
     pass
 
@@ -188,10 +197,15 @@ def makemigrations(message):
 
 
 @cli.command()
-def migrate():
+@click.option('-r', '--revision', default="head")
+@click.option('--upgrade/--downgrade', default=True, help="Default is upgrade")
+def migrate(revision, upgrade):
     try:
         cfg = get_alembic_conf()
-        alembic.upgrade(cfg, "head")
+        if upgrade is True:
+            alembic.upgrade(cfg, revision)
+        else:
+            alembic.downgrade(cfg, "-1" if revision == "head" else revision)
     except CommandError as err:
         click.echo(click.style(
             str(err),
