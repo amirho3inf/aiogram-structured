@@ -24,12 +24,14 @@ DATABASE_URL = None
 # example:
 # redis://[:password@]host[:port][/db-number][?option=value]
 # redis://localhost/0
+# note: if REDIS_URL is set, APSCHEDULER & Aiogram (fsm_storage) use it. otherwise, they use memory
 REDIS_URL = None
 
 HANDLERS_DIR = "handlers"
 MODELS_DIR = "models"
 CONTEXT_FILE = "context"
 
+# if REDIS_URL is set, APSCHEDULER uses redis to store jobs
 ENABLE_APSCHEDULER = True
 
 SUDOERS = [
