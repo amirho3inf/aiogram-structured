@@ -28,7 +28,7 @@ MAIN_MODULE_NAME = os.path.basename(__file__)[:-3]
 try:
     from config import API_TOKEN, PROXY, PROXY_AUTH, DATABASE_URL, \
         REDIS_URL, HANDLERS, SKIP_UPDATES, HANDLERS_DIR, MODELS_DIR, \
-        CONTEXT_FILE, ENABLE_APSCHEDULER
+        CONTEXT_FILE, ENABLE_APSCHEDULER, PARSE_MODE
 except ModuleNotFoundError:
     click.echo(click.style(
         "Config file not found!\n"
@@ -227,7 +227,10 @@ def migrate(revision, upgrade):
 
 
 if __name__ == MAIN_MODULE_NAME:
-    bot = Bot(token=API_TOKEN, proxy=PROXY, proxy_auth=PROXY_AUTH)
+    bot = Bot(token=API_TOKEN,
+              proxy=PROXY,
+              proxy_auth=PROXY_AUTH,
+              parse_mode=PARSE_MODE)
     dp = Dispatcher(bot, storage=MemoryStorage())
 
     if DATABASE_URL is not None:

@@ -1,6 +1,10 @@
 API_TOKEN = "123456789:AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
 SKIP_UPDATES = True
 
+# default parse_mode is None
+# can change with html or markdown
+PARSE_MODE = None
+
 # example: socks5://127.0.0.1:1080
 PROXY = None
 
