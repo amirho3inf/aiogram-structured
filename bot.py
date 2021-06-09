@@ -137,14 +137,14 @@ def _get_db_obj():
     return db
 
 
-def _get_text_obj():
+def _get_context_obj():
     if CONTEXT_FILE is not None:
-        context = importlib.import_module(CONTEXT_FILE)
-        text = _Context(context)
+        _module = importlib.import_module(CONTEXT_FILE)
+        context = _Context(_module)
     else:
-        text = _NoneModule("text", "CONTEXT_FILE")
+        context = _NoneModule("text", "CONTEXT_FILE")
 
-    return text
+    return context
 
 
 def _get_scheduler_obj(redis):
@@ -173,7 +173,14 @@ def _get_scheduler_obj(redis):
     return scheduler
 
 
-__all__ = ["bot", "dp", "db", "redis", "text", "scheduler"]
+__all__ = [
+    "bot",
+    "dp",
+    "db",
+    "redis",
+    "context",
+    "scheduler"
+]
 
 
 if __name__ == MAIN_MODULE_NAME:
@@ -181,7 +188,7 @@ if __name__ == MAIN_MODULE_NAME:
     redis = _get_redis_obj()
     dp = _get_dp_obj(bot, redis)
     db = _get_db_obj()
-    text = _get_text_obj()
+    context = _get_context_obj()
     scheduler = _get_scheduler_obj(redis)
 
 
