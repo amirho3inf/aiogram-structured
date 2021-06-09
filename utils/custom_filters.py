@@ -1,26 +1,18 @@
-from aiogram.types import ChatType, CallbackQuery, Message
+from aiogram.types import ChatType
+from aiogram.dispatcher.filters import ChatTypeFilter
 from config import SUDOERS
 
 
 def IsGroup(m):
-    if isinstance(m, Message):
-        return ChatType.is_group_or_super_group(m)
-    elif isinstance(m, CallbackQuery):
-        return ChatType.is_group_or_super_group(m.message)
+    return ChatTypeFilter([ChatType.GROUP, ChatType.SUPERGROUP])
 
 
 def IsPrivate(m):
-    if isinstance(m, Message):
-        return ChatType.is_private(m)
-    elif isinstance(m, CallbackQuery):
-        return ChatType.is_private(m.message)
+    return ChatTypeFilter(ChatType.PRIVATE)
 
 
 def IsChannel(m):
-    if isinstance(m, Message):
-        return ChatType.is_channel(m)
-    elif isinstance(m, CallbackQuery):
-        return ChatType.is_channel(m.message)
+    return ChatTypeFilter(ChatType.CHANNEL)
 
 
 def IsSudo(m):
