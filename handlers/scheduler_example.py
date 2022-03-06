@@ -3,7 +3,7 @@
 from bot import scheduler
 
 from bot import dp
-from utils.custom_filters import IsPrivate
+from utils.dispatcher_filters import IsPrivate
 from utils.HTTP_methods import delete_msg
 from datetime import datetime, timedelta
 

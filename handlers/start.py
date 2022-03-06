@@ -4,7 +4,7 @@ from aiogram.types import ReplyKeyboardMarkup, ReplyKeyboardRemove
 from bot import dp, db, context
 from models.user import User
 from forms.register import Register
-from utils.custom_filters import IsPrivate
+from utils.dispatcher_filters import IsPrivate
 
 
 @dp.message_handler(CommandStart(), IsPrivate)
