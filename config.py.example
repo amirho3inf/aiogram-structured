@@ -39,6 +39,7 @@ SUDOERS = [
 ]
 
 HANDLERS = [
+    "middlewares",
     "start",
     "scheduler_example"
 ]

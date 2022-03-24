@@ -8,8 +8,8 @@ from utils.dispatcher_filters import IsPrivate
 
 
 @dp.message_handler(CommandStart(), IsPrivate)
-async def start(msg):
-    user = User.query.filter(User.id == msg.from_user.id).first()
+# middleware will load and pass user to handler if it's required, check middlewares.py file
+async def start(msg, user):
     if user is not None:
         return await msg.reply(context.already_registered)
 
