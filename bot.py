@@ -63,16 +63,37 @@ class _Context(object):
         r = getattr(self._context_obj, name, None)
 
         if r is None:
-            return f"< {name} > not defined in context."
+            return f"\"{name}\" is not defined."
 
-        frame = inspect.currentframe()
-        try:
-            caller_locals = frame.f_back.f_locals
-            r = r.format_map(caller_locals)
-        finally:
-            del frame
+        if isinstance(r, str):
+            frame = inspect.currentframe()
+            try:
+                caller_locals = frame.f_back.f_locals
+                r = r.format_map(caller_locals)
+            finally:
+                del frame
 
-        return r
+            return r
+        elif isinstance(r, type):
+            return _Context(r)
+
+    def __getitem__(self, name):
+        r = getattr(self._context_obj, name, None)
+
+        if r is None:
+            return f"\"{name}\" is not defined."
+
+        if isinstance(r, str):
+            frame = inspect.currentframe()
+            try:
+                caller_locals = frame.f_back.f_locals
+                r = r.format_map(caller_locals)
+            finally:
+                del frame
+
+            return r
+        elif isinstance(r, type):
+            return _Context(r)
 
 
 class _NotDefinedModule(Exception):

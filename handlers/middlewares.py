@@ -16,17 +16,32 @@ class GeneralMiddleware(BaseMiddleware):
     async def post_process(self, msg, data, *args):
         pass
 
+    async def get_user(self, user):
+        return User.query.filter(User.id == user.id).first()
+
+    async def get_language(self, user):
+        if user.language_code in ['fa', 'en']:
+            return user.language_code
+
+        return 'en'
+
     async def on_process_message(self, msg, data):
         spec = inspect.getfullargspec(current_handler.get())
 
         if 'user' in spec.args:  # set user if handler requires it
-            data['user'] = User.query.filter(User.id == msg.from_user.id).first()
+            data['user'] = await self.get_user(msg.from_user)
+
+        if 'language' in spec.args:  # set language if handler requires it
+            data['language'] = await self.get_language(msg.from_user)
 
     async def on_process_callback_query(self, msg, data):
         spec = inspect.getfullargspec(current_handler.get())
 
         if 'user' in spec.args:  # set user if handler requires it
-            data['user'] = User.query.filter(User.id == msg.from_user.id).first()
+            data['user'] = await self.get_user(msg.from_user)
+
+        if 'language' in spec.args:  # set language if handler requires it
+            data['language'] = await self.get_language(msg.from_user)
 
     async def trigger(self, action, args):
         obj, *args, data = args
