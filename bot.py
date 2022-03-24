@@ -8,7 +8,7 @@ import importlib
 
 from aiogram import Bot, Dispatcher, executor
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
-from aiogram.contrib.fsm_storage.redis import RedisStorage
+from aiogram.contrib.fsm_storage.redis import RedisStorage2
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, scoped_session
@@ -115,10 +115,10 @@ def _get_redis_obj():
 def _get_dp_obj(bot, redis):
     if not isinstance(redis, _NoneModule):
         cfg = redis.connection_pool.connection_kwargs
-        storage = RedisStorage(
-            host=cfg.get("host"),
-            port=cfg.get("port"),
-            db=cfg.get("db"),
+        storage = RedisStorage2(
+            host=cfg.get("host", "localhost"),
+            port=cfg.get("port", 6379),
+            db=cfg.get("db", 0),
             password=cfg.get("password")
         )
     else:
@@ -155,9 +155,9 @@ def _get_scheduler_obj(redis):
     if not isinstance(redis, _NoneModule):
         cfg = redis.connection_pool.connection_kwargs
         jobstores = {
-            'default': RedisJobStore(host=cfg.get("host"),
-                                     port=cfg.get("port"),
-                                     db=cfg.get("db"),
+            'default': RedisJobStore(host=cfg.get("host", "localhost"),
+                                     port=cfg.get("port", 6379),
+                                     db=cfg.get("db", 0),
                                      password=cfg.get("password"))
         }
     else:
