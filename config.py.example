@@ -19,7 +19,7 @@ PROXY_AUTH = None
 # example:
 # MYSQL = mysql+pymysql://USER:PASS@HOST:PORT/DB?charset=utf8mb4
 # SQLITE = sqlite:///database.sqlite
-DATABASE_URL = None
+DATABASE_URL = "sqlite:///database.sqlite"
 
 # example:
 # redis://[:password@]host[:port][/db-number][?option=value]
